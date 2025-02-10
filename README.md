@@ -7,5 +7,6 @@ Architektur:
 WebApp:
 - React für UI-Design
 - In JavaScript
+  
 Diagramme:
 -UMLet VSC-Extension

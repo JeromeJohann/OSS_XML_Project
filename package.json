@@ -1,0 +1,11 @@
+{
+  "name": "xml_parser",
+  "version": "0.0.1",
+  "description": "Project for LF12",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sebastian, Mirvan, Jerome",
+  "license": "MIT"
+}

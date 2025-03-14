@@ -45,7 +45,7 @@ function App() {
 
 
         const quizElement = quiz.questions.map((question: Question) => {
-            return <div key={question.name}>{question.name}</div>;
+            return <div key={question.name + quiz.questions.indexOf(question)}>{question.name}</div>;
         });
 
         return (

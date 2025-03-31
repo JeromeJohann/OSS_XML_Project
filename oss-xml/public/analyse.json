@@ -1,0 +1,76 @@
+{
+    "quiz": [
+        {
+            "question": {
+                "type": ""
+            },
+            "category": "text",
+            "info" : "text",
+            "idnumber": "?",
+            "name": "text",
+            "questiontext": {
+                "format": "",
+                "text": "text"
+            },
+            "defaultgrade": 0,
+            "penalty": 0,
+            "hidden": 0,
+            "shuffleanswers": true,
+            "correctfeedback": {
+                "format": "",
+                "text": "text"
+            },
+            "partiallycorrectfeedback": {
+                "format": "",
+                "text": "text",
+                "file": {
+                    "name": "text",
+                    "path": "text",
+                    "encoding": "text",
+                    "file": "file"
+                }
+            },
+            "incorrectfeedback": {
+                "format": "",
+                "text": "text"
+            },
+            "shownumcorrect" : "?",
+            "subquestions" : [
+                {
+                    "format": "",
+                    "text": "text",
+                    "answer": "text"
+                }
+            ],
+            "tags" : [
+                {
+                    "text": "text"
+                }
+            ],
+            "generalfeedback" : {
+                "format": "",
+                "text": "text"
+            },
+            "single": true,
+            "answernumbering": "",
+            "showstandardinstruction": 0,
+            "answers": [
+                {
+                    "format": "",
+                    "fraction": 0,
+                    "text": "text",
+                    "feedback": {
+                        "format": "",
+                        "text": "text"
+                    },
+                    "tolerance": 0
+                }
+            ],
+            "unitgradingtype": 0,
+            "unitpenality": 0,
+            "showunits": 0,
+            "unitsleft": 0,
+            "usecase": 0
+        }
+    ]
+}

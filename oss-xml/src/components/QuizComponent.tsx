@@ -1,15 +1,40 @@
+import { useState } from "react";
 import { Question } from "../model/question";
 import { Quiz } from "../model/quiz";
 import QuestionComponent from "./QuestionComponent";
+import { Button } from "@mui/material";
 
 export default function QuizComponent(quiz: Quiz) {
+    const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
 
-    const quizElement = quiz.questions.map((question: Question) => {
-        return <QuestionComponent key={question.name + quiz.questions.indexOf(question)} {...question}></QuestionComponent>;
+    const questionMap: Map<string, Question> = new Map<string, Question>();
+
+    quiz.questions.map((question: Question) => {
+        questionMap.set(question.name, question);
     });
+
+    function handleQuestionClick(name: string) {
+        setSelectedQuestion(name);
+    }
+    const overview = quiz.questions.map((question: Question) => {
+        return <Button key={question.name + quiz.questions.indexOf(question)} onClick={() => handleQuestionClick(question.name)}>{question.name}</Button>
+
+    });
+
+    if (selectedQuestion === null) {
+        return (
+            <div>
+                {overview}
+            </div>
+        );
+    }
+
     return (
         <div>
-            {quizElement}
+            <div>
+                {overview}
+            </div>
+            <QuestionComponent {...questionMap.get(selectedQuestion)!}></QuestionComponent>
         </div>
     );
 }

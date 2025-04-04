@@ -12,7 +12,7 @@ export interface Question {
     shuffleAnswers?: boolean;
     correctFeedback?: FormattedText;
     partiallyCorrectFeedback?: FormattedTextWithFile;
-    incorrectFeedback?: FormattedTextWithFile;
+    incorrectFeedback?: FormattedText;
     showNumCorrect?: string;
     subQuestions?: SubQuestion[];
     tags?: string[];
@@ -47,7 +47,7 @@ export interface MoodleFile {
 }
 
 export interface FormattedTextWithFile extends FormattedText {
-    file: MoodleFile[];
+    file?: MoodleFile;
 }
 
 export interface SubQuestion extends FormattedText {

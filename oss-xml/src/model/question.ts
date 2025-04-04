@@ -1,9 +1,9 @@
 
 export interface Question {
+    name: FormattedText;
     type?: string;
     category?: string;
     info?: FormattedText;
-    name: FormattedText;
     idNumber?: string;
     questionText?: FormattedText;
     defaultGrade?: number;

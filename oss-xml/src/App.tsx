@@ -2,11 +2,12 @@ import './App.css'
 import { Answer, FormattedText, Question, SubQuestion } from './model/question';
 import { Quiz } from './model/quiz';
 import { useState } from 'react';
-import QuizComponent from './components/QuizComponent';
+import QuizComponent, { QuizComponentProps } from './components/QuizComponent';
 import Navbar, { NavbarProps } from './components/Navbar';
 
 function App() {
     const [quiz, setQuiz] = useState<Quiz>({ questions: [] });
+    const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
     const handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void> = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const parser: DOMParser = new DOMParser();
@@ -60,6 +61,8 @@ function App() {
                                     text: textElement.innerHTML || ''
                                 };
                             }
+                        } else {
+                            continue; // Skip if <name> is not found
                         }
 
                         // Parse <questiontext>
@@ -158,14 +161,32 @@ function App() {
         return undefined;
     };
 
+    function addOrRemoveSelectedQuestion(question: Question, selected : boolean) {
+        console.log('selectedQuestions', selectedQuestions);
+        setSelectedQuestions((prevSelectedQuestions) => {
+            if (!selected) {
+                const updatedSelectedQuestions = prevSelectedQuestions.filter((q) => q.name.text !== question.name.text);
+                return updatedSelectedQuestions;
+            } else {
+                const updatedSelectedQuestions = [...prevSelectedQuestions, question];
+                return updatedSelectedQuestions;
+            }
+        });
+    }
+
     const navbarProps : NavbarProps = {
         handleFileChange: handleFileChange
+    };
+
+    const quizProps : QuizComponentProps = {
+        quiz: quiz,
+        selectHandler: addOrRemoveSelectedQuestion
     };
 
     return (
         <>
             <Navbar {...navbarProps}></Navbar>
-            <QuizComponent {...quiz}></QuizComponent>
+            <QuizComponent {...quizProps}></QuizComponent>
         </>
     )
 }

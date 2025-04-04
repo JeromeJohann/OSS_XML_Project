@@ -3,6 +3,7 @@ import { Question } from "../model/question";
 import { Quiz } from "../model/quiz";
 import QuestionComponent from "./QuestionComponent";
 import { Button, Checkbox } from "@mui/material";
+import "./QuizComponent.css";
 
 export default function QuizComponent(props : QuizComponentProps) {
     const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
@@ -24,9 +25,9 @@ export default function QuizComponent(props : QuizComponentProps) {
 
     const overview = props.quiz.questions.map((question: Question) => {
         return (
-            <div>
-                <Checkbox key={"checkbox" + question.name.text + props.quiz.questions.indexOf(question)} onChange={(event) => handleMarkQuestion(question, event)}></Checkbox>
-                <Button key={question.name.text + props.quiz.questions.indexOf(question)} onClick={() => handleQuestionClick(question.name.text)}>{question.name.text}</Button>
+            <div key={question.name.text + props.quiz.questions.indexOf(question)}>
+                <Checkbox onChange={(event) => handleMarkQuestion(question, event)}></Checkbox>
+                <Button onClick={() => handleQuestionClick(question.name.text)}>{question.name.text}</Button>
             </div>
         )
         
@@ -35,7 +36,7 @@ export default function QuizComponent(props : QuizComponentProps) {
 
     if (selectedQuestion === null) {
         return (
-            <div>
+            <div className="questions">
                 {overview}
             </div>
         );
@@ -43,7 +44,7 @@ export default function QuizComponent(props : QuizComponentProps) {
 
     return (
         <div>
-            <div>
+            <div className="questions">
                 {overview}
             </div>
             <QuestionComponent {...questionMap.get(selectedQuestion)!}></QuestionComponent>

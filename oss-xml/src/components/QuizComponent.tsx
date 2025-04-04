@@ -10,14 +10,14 @@ export default function QuizComponent(quiz: Quiz) {
     const questionMap: Map<string, Question> = new Map<string, Question>();
 
     quiz.questions.map((question: Question) => {
-        questionMap.set(question.name, question);
+        questionMap.set(question.name.text, question);
     });
 
     function handleQuestionClick(name: string) {
         setSelectedQuestion(name);
     }
     const overview = quiz.questions.map((question: Question) => {
-        return <Button key={question.name + quiz.questions.indexOf(question)} onClick={() => handleQuestionClick(question.name)}>{question.name}</Button>
+        return <Button key={question.name.text + quiz.questions.indexOf(question)} onClick={() => handleQuestionClick(question.name.text)}>{question.name.text}</Button>
 
     });
 

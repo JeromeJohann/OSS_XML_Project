@@ -1,5 +1,5 @@
 import './App.css'
-import { Question } from './model/question';
+import { FormattedText, Question } from './model/question';
 import { Quiz } from './model/quiz';
 import { useState } from 'react';
 import QuizComponent from './components/QuizComponent';
@@ -20,18 +20,23 @@ function App() {
             if (questionElements) {
                 for (let i = 0; i < questionElements.length; i++) {
                     const questionElement: Element = questionElements[i];
-
-                    const nameElement: Element = questionElement.getElementsByTagName('name')[0];
-                    if (nameElement) {
-                        const textElement: Element = nameElement.getElementsByTagName('text')[0];
-                        if (textElement) {
-                            const name: string | null = textElement.textContent;
-                            if (!name) {
-                                continue;
+                    if (questionElement) {
+                        let question : Question | null = null;
+                        const nameElement: Element = questionElement.getElementsByTagName('name')[0];
+                        let nameFormatted : FormattedText = { format: '', text: '' };
+                        if (nameElement) {
+                            const textElement: Element = nameElement.getElementsByTagName('text')[0];
+                            if (textElement) {
+                                const name = textElement.textContent;
+                                if (!name) {
+                                    continue;
+                                }
+                                const format : string | null = nameElement.getAttribute('format');
+                                nameFormatted = { format: format || '', text: name || '' };
                             }
-                            const question: Question = { name: name };
-                            quiz.questions.push(question);
                         }
+                        question = { name: nameFormatted };
+                        quiz.questions.push(question);
                     }
                 }
                 setQuiz(quiz);

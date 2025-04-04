@@ -1,39 +1,55 @@
 
 export interface Question {
-    name: string;
     type?: string;
-    questionText?: QuestionText;
-    generalFeedback?: string;
+    category?: string;
+    info?: FormattedText;
+    name: FormattedText;
+    idNumber?: string;
+    questionText?: FormattedText;
     defaultGrade?: number;
     penalty?: number;
     hidden?: number;
-    idNumber?: string;
-    single?: boolean;
     shuffleAnswers?: boolean;
+    correctFeedback?: FormattedText;
+    partiallyCorrectFeedback?: FormattedTextWithFile;
+    incorrectFeedback?: FormattedTextWithFile;
+    showNumCorrect?: string;
+    subQuestions?: SubQuestion[];
+    tags?: string[];
+    generalFeedback?: FormattedText;
+    single?: boolean;
     answerNumbering?: string;
     showStandardInstruction?: number;
-    correctFeedback?: string;
-    partiallyCorrectFeedback?: string;
-    incorrectFeedback?: string;
-    showNumCorrect?: string;
     answer?: Answer[];
-    category?: string;
-    info?: Info;
+    unitgradingtype?: number;
+    unitpenalty?: number;
+    showunits?: number;
+    unitsleft?: number;
+    usecase?: number;
 }
 
-interface QuestionText {
+export interface FormattedText {
     format: string;
     text: string;
 }
 
-interface Answer {
+export interface Answer extends FormattedText {
     fraction: number;
-    format: string;
-    text: string;
-    feedback?: string;
+    feedback?: FormattedText;
+    tolerance?: number;
 }
 
-interface Info {
-    format: string;
-    text: string;
+export interface MoodleFile {
+    name: string;
+    path: string;
+    encoding: string;
+    file: File
+}
+
+export interface FormattedTextWithFile extends FormattedText {
+    file: MoodleFile[];
+}
+
+export interface SubQuestion extends FormattedText {
+    answer: string;
 }

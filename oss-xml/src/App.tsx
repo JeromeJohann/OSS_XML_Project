@@ -11,7 +11,11 @@ function App() {
     const handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void> = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const parser: DOMParser = new DOMParser();
-            const xmlDoc: Document = parser.parseFromString(await e.target.files[0].text(), "text/html");
+            let xmlContent: string = await e.target.files[0].text();
+            xmlContent = xmlContent.substring(xmlContent.indexOf('<quiz>'));
+            console.log('xmlContent', xmlContent);
+            const xmlDoc: Document = parser.parseFromString(xmlContent, "text/xml");
+            console.log('xmlDoc', xmlDoc);
             const quizElement = xmlDoc.getElementsByTagName('quiz')[0];
             if (!quizElement) {
                 return;
@@ -74,6 +78,7 @@ function App() {
                                     format: questionTextElement.getAttribute('format') || '',
                                     text: textElement.innerHTML || ''
                                 };
+                                console.log('question.questionText', question.questionText.text);
                             }
                         }
 
@@ -174,8 +179,148 @@ function App() {
         });
     }
 
+    function exportHandler() {
+        // File content and filename
+        const fileName : string = "quiz.xml";
+
+        // Create the XML content
+
+        const xmlContent : string = createQuizXML();
+        console.log('xmlContent', xmlContent);
+        // return;
+        // Create a Blob object with the file content
+        const blob : Blob = new Blob([xmlContent], { type: 'text/plain' });
+        
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+    
+        // Programmatically click the link to trigger the download
+        link.click();
+    
+        // Clean up the URL object
+        URL.revokeObjectURL(link.href);
+    }
+
+    function createQuizXML() {
+        let xmlString = '<?xml version="1.0" encoding="UTF-8"?>\n<quiz>\n';
+        selectedQuestions.forEach((question) => {
+            xmlString += '<question' + (question.type ? ` type="${question.type}"` : '') + '>\n';
+            if (question.type === 'category') {
+                xmlString += `<category><text>${question.category}</text></category>\n`;
+            }
+
+            xmlString += '    <name' + (question.name.format ? ` format="${question.name.format}"` : '') + `><text>${question.name.text}</text></name>\n`;
+            
+            if (question.questionText) {
+                xmlString += '    <questiontext ' + (question.questionText?.format ? ` format="${question.questionText.format}"` : "") + `><text>${question.questionText?.text}</text></questiontext>\n`;
+            }
+            if (question.generalFeedback){
+                xmlString += '    <generalfeedback ' + (question.generalFeedback?.format ? ` format="${question.generalFeedback.format}"` : "") + `><text>${question.generalFeedback?.text}</text></generalfeedback>\n`;
+            }
+            if (question.defaultGrade) {
+                xmlString += `    <defaultgrade>${question.defaultGrade}</defaultgrade>\n`;
+            }
+            if (question.penalty) {
+                xmlString += `    <penalty>${question.penalty}</penalty>\n`;
+            }
+            if (question.hidden) {
+                xmlString += `    <hidden>${question.hidden}</hidden>\n`;
+            }
+            if (question.idNumber) {
+                xmlString += `    <idnumber>${question.idNumber}</idnumber>\n`;
+            }
+            if (question.shuffleAnswers) {
+                xmlString += `    <shuffleanswers>${question.shuffleAnswers}</shuffleanswers>\n`;
+            }
+            if (question.correctFeedback) {
+                xmlString += '    <correctfeedback' + (question.correctFeedback?.format ? ` format="${question.correctFeedback.format}"` : "") + `><text>${question.correctFeedback?.text}</text></correctfeedback>\n`;
+            }
+            if (question.partiallyCorrectFeedback) {
+                xmlString += '    <partiallycorrectfeedback ' + (question.partiallyCorrectFeedback?.format ? ` format="${question.partiallyCorrectFeedback.format}"` : "") + `><text>${question.partiallyCorrectFeedback?.text}</text></partiallycorrectfeedback>\n`;
+            } 
+            if (question.incorrectFeedback) {
+                xmlString += '    <incorrectfeedback ' + (question.incorrectFeedback?.format ? ` format="${question.incorrectFeedback.format}"` : "") + `><text>${question.incorrectFeedback?.text}</text></incorrectfeedback>\n`;
+            }
+            if (question.showNumCorrect) {
+                xmlString += `    <shownumcorrect>${question.showNumCorrect}</shownumcorrect>\n`;
+            }
+            if (question.single) {
+                xmlString += `    <single>${question.single}</single>\n`;
+            }
+            if (question.answerNumbering) {
+                xmlString += `    <answernumbering>${question.answerNumbering}</answernumbering>\n`;
+            }
+            if (question.showStandardInstruction) {
+                xmlString += `    <showstandardinstruction>${question.showStandardInstruction}</showstandardinstruction>\n`;
+            }
+            if (question.unitgradingtype) {
+                xmlString += `    <unitgradingtype>${question.unitgradingtype}</unitgradingtype>\n`;
+            }
+            if (question.unitpenalty) {
+                xmlString += `    <unitpenalty>${question.unitpenalty}</unitpenalty>\n`;
+            }
+            if (question.showunits) {
+                xmlString += `    <showunits>${question.showunits}</showunits>\n`;
+            }
+            if (question.unitsleft) {
+                xmlString += `    <unitsleft>${question.unitsleft}</unitsleft>\n`;
+            }
+            if (question.usecase) {
+                xmlString += `    <usecase>${question.usecase}</usecase>\n`;
+            }
+            if (question.tags) {
+                question.tags.forEach((tag) => {
+                    xmlString += `    <tags><text>${tag}</text></tags>\n`;
+                });
+            }
+            if (question.answer) {
+                question.answer.forEach((answer) => {
+                    xmlString += '    <answer ' + (answer.format ? ` format="${answer.format}"` : '') + ` fraction="${answer.fraction}">\n`;
+                    xmlString += `        <text>${answer.text}</text>\n`;
+                    if (answer.feedback) {
+                        xmlString += '        <feedback ' + (answer.feedback.format ? ` format="${answer.feedback.format}"` : '') + `><text>${answer.feedback.text}</text></feedback>\n`;
+                    }
+                    xmlString += '    </answer>\n';
+                }
+            );
+            }
+            if (question.subQuestions) {
+                question.subQuestions.forEach((subQuestion) => {
+                    xmlString += '    <subquestion' + (subQuestion.format ? ` format="${subQuestion.format}"` : '') + '>\n';
+                    xmlString += `        <text>${subQuestion.text}</text>\n`;
+                    xmlString += `        <answer>${subQuestion.answer}</answer>\n`;
+                    xmlString += '    </subquestion>\n';
+                });
+            }
+
+            xmlString += '</question>\n';
+        });
+        xmlString += '</quiz>';
+        xmlString = xmlEscaper(xmlString);
+        return xmlString;
+    }
+
+    function xmlEscaper(xmlString: string) {
+        xmlString = xmlString.replace('&amp;', '&');
+        xmlString = xmlString.replace('&lt;', '<');
+        xmlString = xmlString.replace('&gt;', '>');
+        xmlString = xmlString.replace('&quot;', '"');
+        xmlString = xmlString.replace('&apos;', '\'');
+        xmlString = xmlString.replace('&nbsp;', ' ');
+        xmlString = xmlString.replace(/&auml;/g, 'ä');
+        xmlString = xmlString.replace(/&ouml;/g, 'ö');
+        xmlString = xmlString.replace(/&uuml;/g, 'ü');
+        xmlString = xmlString.replace(/&Auml;/g, 'Ä');
+        xmlString = xmlString.replace(/&Ouml;/g, 'Ö');
+        xmlString = xmlString.replace(/&Uuml;/g, 'Ü');
+        xmlString = xmlString.replace(/&szlig;/g, 'ß');
+        return xmlString;
+    }
     const navbarProps : NavbarProps = {
-        handleFileChange: handleFileChange
+        handleFileChange: handleFileChange,
+        exportHandler: exportHandler
     };
 
     const quizProps : QuizComponentProps = {

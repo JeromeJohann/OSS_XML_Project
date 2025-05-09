@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 export default function Navbar(props: NavbarProps) {
 
     function handleExport() {
-        console.log("not implemented");
+        props.exportHandler();
     };
 
     return (
@@ -20,4 +20,5 @@ export default function Navbar(props: NavbarProps) {
 
 export type NavbarProps = {
     handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    exportHandler: () => void;
 }

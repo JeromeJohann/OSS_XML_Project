@@ -13,14 +13,12 @@ function App() {
             const parser: DOMParser = new DOMParser();
             let xmlContent: string = await e.target.files[0].text();
             xmlContent = xmlContent.substring(xmlContent.indexOf('<quiz>'));
-            console.log('xmlContent', xmlContent);
             const xmlDoc: Document = parser.parseFromString(xmlContent, "text/xml");
-            console.log('xmlDoc', xmlDoc);
             const quizElement = xmlDoc.getElementsByTagName('quiz')[0];
             if (!quizElement) {
                 return;
             }
-            const quiz: Quiz = { questions: [] };
+            const currentQuiz: Quiz = JSON.parse(JSON.stringify(quiz));
             const questionElements: HTMLCollectionOf<Element> = quizElement.getElementsByTagName('question');
             if (questionElements) {
                 for (let i = 0; i < questionElements.length; i++) {
@@ -62,7 +60,7 @@ function App() {
                             if (textElement) {
                                 question.name = {
                                     format: nameElement.getAttribute('format') || '',
-                                    text: textElement.innerHTML || ''
+                                    text: htmlEscaper(textElement.innerHTML) || ''
                                 };
                             }
                         } else {
@@ -76,9 +74,8 @@ function App() {
                             if (textElement) {
                                 question.questionText = {
                                     format: questionTextElement.getAttribute('format') || '',
-                                    text: textElement.innerHTML || ''
+                                    text: htmlEscaper(textElement.innerHTML) || ''
                                 };
-                                console.log('question.questionText', question.questionText.text);
                             }
                         }
 
@@ -89,7 +86,7 @@ function App() {
                             if (textElement) {
                                 question.generalFeedback = {
                                     format: generalFeedbackElement.getAttribute('format') || '',
-                                    text: textElement.innerHTML || ''
+                                    text: htmlEscaper(textElement.innerHTML) || ''
                                 };
                             }
                         }
@@ -102,12 +99,12 @@ function App() {
                             const feedbackElement = answerElement.getElementsByTagName('feedback')[0];
                             const answer: Answer = {
                                 format: answerElement.getAttribute('format') || '',
-                                text: textElement?.innerHTML || '',
+                                text: htmlEscaper(textElement?.innerHTML) || '',
                                 fraction: parseFloat(answerElement.getAttribute('fraction') || '0'),
                                 feedback: feedbackElement
                                     ? {
                                           format: feedbackElement.getAttribute('format') || '',
-                                          text: feedbackElement.innerHTML || ''
+                                          text: htmlEscaper(feedbackElement.innerHTML) || ''
                                       }
                                     : undefined
                             };
@@ -122,8 +119,8 @@ function App() {
                             const answerElement = subQuestionElement.getElementsByTagName('answer')[0];
                             const subQuestion: SubQuestion = {
                                 format: subQuestionElement.getAttribute('format') || '',
-                                text: textElement?.innerHTML || '',
-                                answer: answerElement?.innerHTML || ''
+                                text: htmlEscaper(textElement?.innerHTML) || '',
+                                answer: htmlEscaper(answerElement?.innerHTML) || ''
                             };
                             question.subQuestions?.push(subQuestion);
                         }
@@ -146,10 +143,10 @@ function App() {
                         question.unitsleft = parseInt(questionElement.getElementsByTagName('unitsleft')[0]?.innerHTML || '0');
                         question.usecase = parseInt(questionElement.getElementsByTagName('usecase')[0]?.innerHTML || '0');
 
-                        quiz.questions.push(question);
+                        currentQuiz.questions.push(question);
                     }
                 }
-                setQuiz(quiz);
+                setQuiz(currentQuiz);
             }
         }
     };
@@ -160,14 +157,13 @@ function App() {
             const textElement = tagElement.getElementsByTagName('text')[0];
             return {
                 format: tagElement.getAttribute('format') || '',
-                text: textElement?.innerHTML || ''
+                text: htmlEscaper(textElement?.innerHTML) || ''
             };
         }
         return undefined;
     };
 
     function addOrRemoveSelectedQuestion(question: Question, selected : boolean) {
-        console.log('selectedQuestions', selectedQuestions);
         setSelectedQuestions((prevSelectedQuestions) => {
             if (!selected) {
                 const updatedSelectedQuestions = prevSelectedQuestions.filter((q) => q.name.text !== question.name.text);
@@ -186,8 +182,6 @@ function App() {
         // Create the XML content
 
         const xmlContent : string = createQuizXML();
-        console.log('xmlContent', xmlContent);
-        // return;
         // Create a Blob object with the file content
         const blob : Blob = new Blob([xmlContent], { type: 'text/plain' });
         
@@ -318,6 +312,23 @@ function App() {
         xmlString = xmlString.replace(/&szlig;/g, 'ß');
         return xmlString;
     }
+
+    function htmlEscaper(htmlString: string) {
+        htmlString = htmlString.replace(/&/g, '&amp;');
+        htmlString = htmlString.replace(/</g, '&lt;');
+        htmlString = htmlString.replace(/>/g, '&gt;');
+        htmlString = htmlString.replace(/"/g, '&quot;');
+        htmlString = htmlString.replace(/'/g, '&apos;');
+        htmlString = htmlString.replace(/ä/g, '&auml;');
+        htmlString = htmlString.replace(/ö/g, '&ouml;');
+        htmlString = htmlString.replace(/ü/g, '&uuml;');
+        htmlString = htmlString.replace(/Ä/g, '&Auml;');
+        htmlString = htmlString.replace(/Ö/g, '&Ouml;');
+        htmlString = htmlString.replace(/Ü/g, '&Uuml;');
+        htmlString = htmlString.replace(/ß/g, '&szlig;');
+        return htmlString;
+    }
+
     const navbarProps : NavbarProps = {
         handleFileChange: handleFileChange,
         exportHandler: exportHandler

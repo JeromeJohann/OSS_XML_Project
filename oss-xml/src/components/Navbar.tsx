@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import '../Navbar.css';
 
 export default function Navbar(props: NavbarProps) {
 
@@ -7,7 +8,7 @@ export default function Navbar(props: NavbarProps) {
     };
 
     return (
-        <div>
+        <div className="navbar-div">
             <Button variant="contained" onClick={handleExport}>Export</Button>
             <div className="input-group">
                 <label htmlFor="input">Import XML</label>

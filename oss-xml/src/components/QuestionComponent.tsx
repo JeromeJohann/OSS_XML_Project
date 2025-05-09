@@ -1,4 +1,5 @@
 import { Question } from "../model/question";
+import "../xml.css";
 
 export default function QuestionComponent(question: Question) {
     const answers = question.answer?.map((answer, index) => (
@@ -24,7 +25,7 @@ export default function QuestionComponent(question: Question) {
     ));
 
     return (
-        <div>
+        <div className="xml-div">
             <div>question: {question.name.text}</div>
             <div>type: {question.type}</div>
             <div>category: {question.category}</div>

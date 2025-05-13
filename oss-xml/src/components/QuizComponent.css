@@ -1,4 +1,40 @@
 .questions {
     columns: 3;
-    width: 100%;
+}
+
+.open-modal-button{
+    display: flex;
+    justify-self: right;
+    margin: 1rem;
+}
+
+.close-modal-button{
+   display: flex;
+   justify-self: right;
+}
+
+.question-name-div{
+    font-size: x-large;
+    font-weight: 500;
+}
+
+.question-text-div{
+    border: 1px solid black;
+    padding: 2rem;
+    height: 20rem;
+}
+
+.question-info-div{
+    position: fixed;
+    overflow-y: scroll;
+    height: 60vh;
+    width: 35vw;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    color: white;
+    margin: 4rem 0 0 15rem;
+}
+
+.type-div{
+    margin-top: 1rem;
 }

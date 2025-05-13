@@ -1,7 +1,10 @@
+import React, {useState} from "react";
 import { Question } from "../model/question";
 import "../xml.css";
 
 export default function QuestionComponent(question: Question) {
+    const [IsModalOpen, setIsModalOpen] = useState(false);
+
     const answers = question.answer?.map((answer, index) => (
         <div key={index}>
             <div>fraction: {answer.fraction}</div>
@@ -24,19 +27,17 @@ export default function QuestionComponent(question: Question) {
         <div key={index}>tag: {tag}</div>
     ));
 
-    return (
-        <div className="xml-div">
-            <div>question: {question.name.text}</div>
+    const QuestionInfoContent = () =>(
+        <>
             <div>type: {question.type}</div>
             <div>category: {question.category}</div>
             <div>info: {question.info?.text}</div>
             <div>idnumber: {question.idNumber}</div>
-            <div>questiontext: {question.questionText?.text}</div>
             <div>generalfeedback: {question.generalFeedback?.text}</div>
             <div>defaultgrade: {question.defaultGrade}</div>
             <div>penalty: {question.penalty}</div>
             <div>hidden: {question.hidden}</div>
-            <div>shuffleanswers: {question.shuffleAnswers ? "true" : "false"}</div>
+            <div>shuffleanswers: {question.shuffleAnswers? "true" : "false"}</div>
             <div>correctfeedback: {question.correctFeedback?.text}</div>
             <div>partiallycorrectfeedback: {question.partiallyCorrectFeedback?.text}</div>
             <div>incorrectfeedback: {question.incorrectFeedback?.text}</div>
@@ -55,6 +56,36 @@ export default function QuestionComponent(question: Question) {
             <div>{answers}</div>
             <div>subquestions:</div>
             <div>{subQuestions}</div>
+        </>
+    );
+
+    return (
+        <div className="xml-div">
+            <div className="question-name-div">{question.name.text}</div>
+            <button
+                onClick={() => setIsModalOpen(true)}
+                className="open-modal-button"
+                aria-label="Show info"
+                >
+                    i
+                </button>
+
+                {IsModalOpen && (
+                    <div className="question-info-div">
+                        <div className="">
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="close-modal-button"
+                                aria-label="Close"
+                                >
+                                    &times;
+                                </button>
+                                <h2 className="">Frage-Informationen</h2>
+                                <div className=""> {<QuestionInfoContent />}</div>
+                        </div>    
+                    </div>
+                )}
+                    <div className="question-text-div">{question.questionText?.text}</div>
         </div>
     );
 }

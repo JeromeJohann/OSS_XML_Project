@@ -43,7 +43,7 @@ export default function QuizComponent(props : QuizComponentProps) {
     }
 
     return (
-        <div>
+        <div className="body-div">
             <div className="questions">
                 {overview}
             </div>

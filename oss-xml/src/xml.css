@@ -1,11 +1,16 @@
 .xml-div{
     overflow-y: scroll;
-    height: 45rem;
+    height: 50rem;
+    width: 70%;
+    margin-left: 5vw;
 }
 
 .questions{
     display: flex;
-        height: 5rem;
-        white-space: nowrap;
-        overflow-x: auto;
+    flex-direction: column;
+    text-align: left;
+    width: fit-content;
+    height: 52rem;
+    white-space: nowrap;
+    overflow-y: auto;
 }

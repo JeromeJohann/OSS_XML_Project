@@ -85,7 +85,7 @@ export default function QuestionComponent(question: Question) {
                         </div>    
                     </div>
                 )}
-                    <div className="question-text-div">{question.questionText?.text}</div>
+                    <div className="question-text-div" onClick={() => setIsModalOpen(false)}>{question.questionText?.text}</div>
         </div>
     );
 }

@@ -297,35 +297,34 @@ function App() {
     }
 
     function xmlEscaper(xmlString: string) {
-        xmlString = xmlString.replace('&amp;', '&');
-        xmlString = xmlString.replace('&lt;', '<');
-        xmlString = xmlString.replace('&gt;', '>');
-        xmlString = xmlString.replace('&quot;', '"');
-        xmlString = xmlString.replace('&apos;', '\'');
-        xmlString = xmlString.replace('&nbsp;', ' ');
-        xmlString = xmlString.replace(/&auml;/g, 'ä');
-        xmlString = xmlString.replace(/&ouml;/g, 'ö');
-        xmlString = xmlString.replace(/&uuml;/g, 'ü');
-        xmlString = xmlString.replace(/&Auml;/g, 'Ä');
-        xmlString = xmlString.replace(/&Ouml;/g, 'Ö');
-        xmlString = xmlString.replace(/&Uuml;/g, 'Ü');
-        xmlString = xmlString.replace(/&szlig;/g, 'ß');
+        xmlString = xmlString.replace(/&/g, '&amp;');
+        xmlString = xmlString.replace(/</g, '&lt;');
+        xmlString = xmlString.replace(/>/g, '&gt;');
+        xmlString = xmlString.replace(/"/g, '&quot;');
+        xmlString = xmlString.replace(/'/g, '&apos;');
+        xmlString = xmlString.replace(/Ã¤/g, '&auml;');
+        xmlString = xmlString.replace(/Ã¶/g, '&ouml;');
+        xmlString = xmlString.replace(/Ã¼/g, '&uuml;');
+        xmlString = xmlString.replace(/Ã„/g, '&Auml;');
+        xmlString = xmlString.replace(/Ã–/g, '&Ouml;');
+        xmlString = xmlString.replace(/Ãœ/g, '&Uuml;');
+        xmlString = xmlString.replace(/ÃŸ/g, '&szlig;');
         return xmlString;
     }
 
     function htmlEscaper(htmlString: string) {
-        htmlString = htmlString.replace(/&/g, '&amp;');
-        htmlString = htmlString.replace(/</g, '&lt;');
-        htmlString = htmlString.replace(/>/g, '&gt;');
-        htmlString = htmlString.replace(/"/g, '&quot;');
-        htmlString = htmlString.replace(/'/g, '&apos;');
-        htmlString = htmlString.replace(/ä/g, '&auml;');
-        htmlString = htmlString.replace(/ö/g, '&ouml;');
-        htmlString = htmlString.replace(/ü/g, '&uuml;');
-        htmlString = htmlString.replace(/Ä/g, '&Auml;');
-        htmlString = htmlString.replace(/Ö/g, '&Ouml;');
-        htmlString = htmlString.replace(/Ü/g, '&Uuml;');
-        htmlString = htmlString.replace(/ß/g, '&szlig;');
+        htmlString = htmlString.replace(/&amp;/g, '\u{0026}');   // &
+        htmlString = htmlString.replace(/&lt;/g, '\u{003C}');    // <
+        htmlString = htmlString.replace(/&gt;/g, '\u{003E}');    // >
+        htmlString = htmlString.replace(/&quot;/g, '\u{0022}');  // "
+        htmlString = htmlString.replace(/&apos;/g, '\u{0027}');  // '
+        htmlString = htmlString.replace(/&auml;/g, '\u{00E4}');  // Ã¤
+        htmlString = htmlString.replace(/&ouml;/g, '\u{00F6}');  // Ã¶
+        htmlString = htmlString.replace(/&uuml;/g, '\u{00FC}');  // Ã¼
+        htmlString = htmlString.replace(/&Auml;/g, '\u{00C4}');  // Ã„
+        htmlString = htmlString.replace(/&Ouml;/g, '\u{00D6}');  // Ã–
+        htmlString = htmlString.replace(/&Uuml;/g, '\u{00DC}');  // Ãœ
+        htmlString = htmlString.replace(/&szlig;/g, '\u{00DF}'); // ÃŸ
         return htmlString;
     }
 

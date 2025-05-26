@@ -1,0 +1,156 @@
+<quiz>
+<!--  question: 0   -->
+<question type="category">
+<category>
+<text>$course$/top/Standard für FA12_1_LF12_24_25</text>
+</category>
+<info format="moodle_auto_format">
+<text>Standardkategorie für Fragen, die im Kontext 'FA12_1_LF12_24_25' freigegeben sind.</text>
+</info>
+<idnumber/>
+</question>
+<!--  question: 27028   -->
+<question type="multichoice">
+<name>
+<text>Frage mit ID</text>
+</name>
+<questiontext format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">ID od er Nnicht ID<br></p> ]]>
+</text>
+</questiontext>
+<generalfeedback format="html">
+<text/>
+</generalfeedback>
+<defaultgrade>1.0000000</defaultgrade>
+<penalty>0.3333333</penalty>
+<hidden>0</hidden>
+<idnumber>123</idnumber>
+<single>true</single>
+<shuffleanswers>true</shuffleanswers>
+<answernumbering>abc</answernumbering>
+<showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html">
+<text>Die Antwort ist richtig.</text>
+</correctfeedback>
+<partiallycorrectfeedback format="html">
+<text>Die Antwort ist teilweise richtig.</text>
+</partiallycorrectfeedback>
+<incorrectfeedback format="html">
+<text>Die Antwort ist falsch.</text>
+</incorrectfeedback>
+<shownumcorrect/>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">1<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">2<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">3<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">4<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="100" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">5<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+</question>
+<!--  question: 27029   -->
+<question type="multichoice">
+<name>
+<text>Frage ohne ID</text>
+</name>
+<questiontext format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">ohne<br></p> ]]>
+</text>
+</questiontext>
+<generalfeedback format="html">
+<text/>
+</generalfeedback>
+<defaultgrade>1.0000000</defaultgrade>
+<penalty>0.3333333</penalty>
+<hidden>0</hidden>
+<idnumber/>
+<single>true</single>
+<shuffleanswers>true</shuffleanswers>
+<answernumbering>abc</answernumbering>
+<showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html">
+<text>Die Antwort ist richtig.</text>
+</correctfeedback>
+<partiallycorrectfeedback format="html">
+<text>Die Antwort ist teilweise richtig.</text>
+</partiallycorrectfeedback>
+<incorrectfeedback format="html">
+<text>Die Antwort ist falsch.</text>
+</incorrectfeedback>
+<shownumcorrect/>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">1<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">2<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">3<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="0" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">4<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+<answer fraction="100" format="html">
+<text>
+<![CDATA[ <p dir="ltr" style="text-align: left;">5<br></p> ]]>
+</text>
+<feedback format="html">
+<text/>
+</feedback>
+</answer>
+</question>
+</quiz>

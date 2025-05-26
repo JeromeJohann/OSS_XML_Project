@@ -61,7 +61,7 @@ export default function QuestionComponent(question: Question) {
 
     return (
         <div className="xml-div">
-            <div className="question-name-div" dangerouslySetInnerHTML={{ __html: question.name.text}}></div>
+            <div className="question-name-div" dangerouslySetInnerHTML={{ __html: "<xml>" + question.name.text.replace("]]>", "") + "</xml>"}}></div>
             <button
                 onClick={() => setIsModalOpen(true)}
                 className="open-modal-button"
@@ -85,7 +85,7 @@ export default function QuestionComponent(question: Question) {
                         </div>    
                     </div>
                 )}
-                    <div className="question-text-div" onClick={() => setIsModalOpen(false)} dangerouslySetInnerHTML={{ __html: question.questionText?.text ? question.questionText?.text : ""}}></div>
+                    <div className="question-text-div" onClick={() => setIsModalOpen(false)} dangerouslySetInnerHTML={{ __html: question.questionText?.text ? "<xml>" + question.questionText?.text.replace("]]>", "")  + "</xml>" : ""}}></div>
         </div>
     );
 }

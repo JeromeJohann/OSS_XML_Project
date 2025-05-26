@@ -58,8 +58,7 @@ function App() {
                         if (nameElement) {
                             const textElement = nameElement.getElementsByTagName('text')[0];
                             if (textElement) {
-                                let questionName = "<xml>" + htmlEscaper(textElement.innerHTML) + "</xml>" || '';
-                                questionName = questionName.replace("]]>", "");
+                                const questionName = htmlEscaper(textElement.innerHTML) || '';
                                 question.name = {
                                     format: nameElement.getAttribute('format') || '',
                                     text: questionName
@@ -74,8 +73,7 @@ function App() {
                         if (questionTextElement) {
                             const textElement = questionTextElement.getElementsByTagName('text')[0];
                             if (textElement) {
-                                let questionText = "<xml>" + htmlEscaper(textElement.innerHTML) + "</xml>" || '';
-                                questionText = questionText.replace("]]>", "");
+                                const questionText = htmlEscaper(textElement.innerHTML) || '';
                                 question.questionText = {
                                     format: questionTextElement.getAttribute('format') || '',
                                     text: questionText
@@ -296,25 +294,25 @@ function App() {
             xmlString += '</question>\n';
         });
         xmlString += '</quiz>';
-        xmlString = xmlEscaper(xmlString);
+        // xmlString = xmlEscaper(xmlString);
         return xmlString;
     }
 
-    function xmlEscaper(xmlString: string) {
-        xmlString = xmlString.replace(/&/g, '&amp;');
-        xmlString = xmlString.replace(/</g, '&lt;');
-        xmlString = xmlString.replace(/>/g, '&gt;');
-        xmlString = xmlString.replace(/"/g, '&quot;');
-        xmlString = xmlString.replace(/'/g, '&apos;');
-        xmlString = xmlString.replace(/ä/g, '&auml;');
-        xmlString = xmlString.replace(/ö/g, '&ouml;');
-        xmlString = xmlString.replace(/ü/g, '&uuml;');
-        xmlString = xmlString.replace(/Ä/g, '&Auml;');
-        xmlString = xmlString.replace(/Ö/g, '&Ouml;');
-        xmlString = xmlString.replace(/Ü/g, '&Uuml;');
-        xmlString = xmlString.replace(/ß/g, '&szlig;');
-        return xmlString;
-    }
+    // function xmlEscaper(xmlString: string) {
+    //     xmlString = xmlString.replace(/&/g, '&amp;');
+    //     xmlString = xmlString.replace(/</g, '&lt;');
+    //     xmlString = xmlString.replace(/>/g, '&gt;');
+    //     xmlString = xmlString.replace(/"/g, '&quot;');
+    //     xmlString = xmlString.replace(/'/g, '&apos;');
+    //     xmlString = xmlString.replace(/ä/g, '&auml;');
+    //     xmlString = xmlString.replace(/ö/g, '&ouml;');
+    //     xmlString = xmlString.replace(/ü/g, '&uuml;');
+    //     xmlString = xmlString.replace(/Ä/g, '&Auml;');
+    //     xmlString = xmlString.replace(/Ö/g, '&Ouml;');
+    //     xmlString = xmlString.replace(/Ü/g, '&Uuml;');
+    //     xmlString = xmlString.replace(/ß/g, '&szlig;');
+    //     return xmlString;
+    // }
 
     function htmlEscaper(htmlString: string) {
         htmlString = htmlString.replace(/&amp;/g, '\u{0026}');   // &

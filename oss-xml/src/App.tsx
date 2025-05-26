@@ -58,9 +58,11 @@ function App() {
                         if (nameElement) {
                             const textElement = nameElement.getElementsByTagName('text')[0];
                             if (textElement) {
+                                let questionName = "<xml>" + htmlEscaper(textElement.innerHTML) + "</xml>" || '';
+                                questionName = questionName.replace("]]>", "");
                                 question.name = {
                                     format: nameElement.getAttribute('format') || '',
-                                    text: htmlEscaper(textElement.innerHTML) || ''
+                                    text: questionName
                                 };
                             }
                         } else {
@@ -72,9 +74,11 @@ function App() {
                         if (questionTextElement) {
                             const textElement = questionTextElement.getElementsByTagName('text')[0];
                             if (textElement) {
+                                let questionText = "<xml>" + htmlEscaper(textElement.innerHTML) + "</xml>" || '';
+                                questionText = questionText.replace("]]>", "");
                                 question.questionText = {
                                     format: questionTextElement.getAttribute('format') || '',
-                                    text: htmlEscaper(textElement.innerHTML) || ''
+                                    text: questionText
                                 };
                             }
                         }

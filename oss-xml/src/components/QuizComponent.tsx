@@ -27,7 +27,7 @@ export default function QuizComponent(props : QuizComponentProps) {
         return (
             <div key={question.name.text + props.quiz.questions.indexOf(question)}>
                 <Checkbox onChange={(event) => handleMarkQuestion(question, event)}></Checkbox>
-                <Button onClick={() => handleQuestionClick(question.name.text)}>{question.name.text}</Button>
+                <Button onClick={() => handleQuestionClick(question.name.text)}><span dangerouslySetInnerHTML={{__html: question.name.text}}></span></Button>
             </div>
         )
         
